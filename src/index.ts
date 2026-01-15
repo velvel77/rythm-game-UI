@@ -16,7 +16,7 @@ interface Category {
     genre: string;
 }
 
-type PreviewStatus = 'playing' | 'paused';
+type MuteStatus = 'playing' | 'muted';
 
 const trackSelection: Track[] = [
     {
@@ -77,6 +77,8 @@ const trackSelection: Track[] = [
 
 // --- Variables ---
 
+let status: MuteStatus = "playing";
+
 //Elements
 const trackTitleElement = document.getElementById("track-title");
 const trackArtistElement = document.getElementById("track-artist");
@@ -87,7 +89,6 @@ const trackBPMElement = document.getElementById("track-tempo");
 
 //Lists
 const trackListContainer = document.querySelector("#track-list-container");
-const trackDifficultyContainer = document.querySelector("#track-difficulty");
 
 //Logik
 
@@ -112,35 +113,58 @@ trackSelection.forEach((track) => {
     card.append(title, artist, difficultyWrapper);
 
     if(trackListContainer) {
+        card.addEventListener("mouseenter", () => {
+            const currentActive = document.querySelector(".main-body__card.active");
+
+            //Enable CSS visuals if card is active
+            if(currentActive) {
+                currentActive.classList.remove("active");
+            }
+
+            card.classList.add("active");
+            //TODO: Add music on mouseenter
+            previewTrack(track);
+        })
+
+        card.addEventListener("mouseleave", () => {
+           card.classList.remove("active");
+           //TODO: Add removal of music
+        })
+
         trackListContainer.appendChild(card);
     }
 })
 
-const currentTrack = trackSelection[0];
-if (!currentTrack) throw new Error("No tracks in trackSelection");
+// --- Functions ---
 
-if(trackTitleElement) {
-    trackTitleElement.textContent = currentTrack.title;
-}
+function previewTrack(track: Track) {
 
-if(trackArtistElement) {
-    trackArtistElement.textContent = currentTrack.artist;
-}
-
-if(coverImageElement) {
-    if(currentTrack.coverUrl) {
-        coverImageElement.src = currentTrack.coverUrl;
+    if(trackTitleElement) {
+        trackTitleElement.textContent = track.title;
     }
+
+    if(trackArtistElement) {
+        trackArtistElement.textContent = track.artist;
+    }
+
+    // if(coverImageElement) {
+    //     if(currentTrack.coverUrl) {
+    //         coverImageElement.src = currentTrack.coverUrl;
+    //     }
+    // }
+
+    // if(trackBPMElement) {
+    //     trackBPMElement.textContent = currentTrack.BPM.toString();
+    // }
+
+    // if(trackMediaElement) {
+    //     trackMediaElement.textContent = currentTrack.category.typeOfMedia;
+    // }
+
+    // if(trackGenreElement) {
+    //     trackGenreElement.textContent = currentTrack.category.genre;
+    // }
 }
 
-if(trackBPMElement) {
-    trackBPMElement.textContent = currentTrack.BPM.toString();
-}
-
-if(trackMediaElement) {
-    trackMediaElement.textContent = currentTrack.category.typeOfMedia;
-}
-
-if(trackGenreElement) {
-    trackGenreElement.textContent = currentTrack.category.genre;
-}
+// const currentTrack = trackSelection[0];
+// if (!currentTrack) throw new Error("No tracks in trackSelection");
