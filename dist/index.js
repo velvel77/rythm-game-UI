@@ -15,49 +15,73 @@ const trackSelection = [
     },
     {
         id: 2,
-        title: "",
-        artist: "",
+        title: "I Really Want to Stay At Your House",
+        artist: "Rosa Walton",
         coverUrl: "https://picsum.photos/300/200",
         category: {
-            typeOfMedia: "",
-            genre: "",
+            typeOfMedia: "Anime",
+            genre: "EDM",
         },
-        difficulty: ["Easy"],
-        BPM: 0,
+        difficulty: ["Easy", "Normal"],
+        BPM: 128,
         isPaused: false,
     },
     {
         id: 3,
-        title: "",
-        artist: "",
+        title: "I Really Want to Stay At Your House",
+        artist: "Rosa Walton",
         coverUrl: "https://picsum.photos/300/200",
         category: {
-            typeOfMedia: "",
-            genre: "",
+            typeOfMedia: "Anime",
+            genre: "EDM",
         },
-        difficulty: ["Easy"],
-        BPM: 0,
+        difficulty: ["Easy", "Normal"],
+        BPM: 128,
         isPaused: false,
     },
     {
         id: 4,
-        title: "",
-        artist: "",
+        title: "I Really Want to Stay At Your House",
+        artist: "Rosa Walton",
         coverUrl: "https://picsum.photos/300/200",
         category: {
-            typeOfMedia: "",
-            genre: "",
+            typeOfMedia: "Anime",
+            genre: "EDM",
         },
-        difficulty: ["Easy"],
-        BPM: 0,
+        difficulty: ["Easy", "Normal"],
+        BPM: 128,
         isPaused: false,
-    }
+    },
 ];
+// --- Variables ---
+//Elements
 const trackTitleElement = document.getElementById("track-title");
 const trackArtistElement = document.getElementById("track-artist");
 const coverImageElement = document.getElementById("track-cover");
-// const trackCategoryElement = document.getElementById("track-category");
+const trackMediaElement = document.getElementById("track-category--media");
+const trackGenreElement = document.getElementById("track-category--genre");
 const trackBPMElement = document.getElementById("track-tempo");
+//Lists
+const trackListContainer = document.querySelector("#track-list-container");
+const trackDifficultyContainer = document.querySelector("#track-difficulty");
+//Logik
+trackSelection.forEach((track) => {
+    const card = document.createElement("article");
+    card.classList.add("main-body__card");
+    const title = document.createElement("h2");
+    title.textContent = track.title;
+    const artist = document.createElement("span");
+    artist.textContent = track.artist;
+    const difficultyWrapper = document.createElement("div");
+    difficultyWrapper.classList.add("main-body__track-difficulty");
+    for (const difficulty of track.difficulty) {
+        difficultyWrapper.append(difficulty);
+    }
+    card.append(title, artist, difficultyWrapper);
+    if (trackListContainer) {
+        trackListContainer.appendChild(card);
+    }
+});
 const currentTrack = trackSelection[0];
 if (!currentTrack)
     throw new Error("No tracks in trackSelection");
@@ -74,6 +98,12 @@ if (coverImageElement) {
 }
 if (trackBPMElement) {
     trackBPMElement.textContent = currentTrack.BPM.toString();
+}
+if (trackMediaElement) {
+    trackMediaElement.textContent = currentTrack.category.typeOfMedia;
+}
+if (trackGenreElement) {
+    trackGenreElement.textContent = currentTrack.category.genre;
 }
 export {};
 //# sourceMappingURL=index.js.map
