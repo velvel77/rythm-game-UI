@@ -88,20 +88,33 @@ const trackGenreElement = document.getElementById("track-category--genre");
 const trackBPMElement = document.getElementById("track-tempo");
 
 //Lists
-const trackListContainer = document.querySelector("#track-list-container");
+const trackContainer = document.querySelector("#track-container");
 
-//Logik
+//Logic
 
 trackSelection.forEach((track) => {
     const card = document.createElement("article");
     card.classList.add("main-body__card");
 
     const title = document.createElement("h2");
+    card.classList.add("main-body__track-title");
     title.textContent = track.title;
 
     const artist = document.createElement("span");
+    card.classList.add("main-body__track-artist")
     artist.textContent = track.artist;
 
+    const imageWrapper = document.createElement("div");
+    imageWrapper.classList.add("main-body__image-wrapper");
+
+    if(track.coverUrl) {
+        const image = document.createElement("img");
+        image.classList.add("main-body__image");
+        image.src = track.coverUrl;
+        image.alt = `Lorem Ipsum`;
+
+        imageWrapper.appendChild(image);
+    }
 
     const difficultyWrapper = document.createElement("div");
     difficultyWrapper.classList.add("main-body__track-difficulty");
@@ -110,9 +123,29 @@ trackSelection.forEach((track) => {
         difficultyWrapper.append(difficulty);
     }
 
-    card.append(title, artist, difficultyWrapper);
+    const bpm = document.createElement("span");
+    card.classList.add("main-body__track-tempo");
+    bpm.textContent = track.BPM.toString();
 
-    if(trackListContainer) {
+    const typeOfMedia = document.createElement("span");
+    card.classList.add("main-body__track-category--media")
+    typeOfMedia.textContent = track.category.typeOfMedia;
+
+    const genre = document.createElement("span");
+    card.classList.add("main-body__track-category--genre");
+    genre.textContent = track.category.genre;
+
+    card.append(
+        imageWrapper, 
+        title, 
+        artist, 
+        difficultyWrapper,
+        bpm,
+        typeOfMedia,
+        genre
+    );
+
+    if(trackContainer) {
         card.addEventListener("mouseenter", () => {
             const currentActive = document.querySelector(".main-body__card.active");
 
@@ -131,7 +164,7 @@ trackSelection.forEach((track) => {
            //TODO: Add removal of music
         })
 
-        trackListContainer.appendChild(card);
+        trackContainer.appendChild(card);
     }
 })
 
@@ -147,23 +180,23 @@ function previewTrack(track: Track) {
         trackArtistElement.textContent = track.artist;
     }
 
-    // if(coverImageElement) {
-    //     if(currentTrack.coverUrl) {
-    //         coverImageElement.src = currentTrack.coverUrl;
-    //     }
-    // }
+    if(coverImageElement) {
+        if(track.coverUrl) {
+            coverImageElement.src = track.coverUrl;
+        }
+    }
 
-    // if(trackBPMElement) {
-    //     trackBPMElement.textContent = currentTrack.BPM.toString();
-    // }
+    if(trackBPMElement) {
+        trackBPMElement.textContent = track.BPM.toString();
+    }
 
-    // if(trackMediaElement) {
-    //     trackMediaElement.textContent = currentTrack.category.typeOfMedia;
-    // }
+    if(trackMediaElement) {
+        trackMediaElement.textContent = track.category.typeOfMedia;
+    }
 
-    // if(trackGenreElement) {
-    //     trackGenreElement.textContent = currentTrack.category.genre;
-    // }
+    if(trackGenreElement) {
+        trackGenreElement.textContent = track.category.genre;
+    }
 }
 
 // const currentTrack = trackSelection[0];
