@@ -2,21 +2,28 @@
 
 <html lang="en-US">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <script type="module" src="./dist/index.js"></script>
-        <title>Rythm Game</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="module" src="./dist/index.js" defer></script>
+    <title>Rythm Game</title>
 
-        <link href="styles/reset.css" rel="stylesheet" />
-        <link href="styles/style.css" rel="stylesheet" />
-    </head>
+    <link href="styles/reset.css" rel="stylesheet" />
+    <link href="styles/style.css" rel="stylesheet" />
+</head>
 
-    <body>
-        <main id="track-container" class="main-body">
+<body>
+    <header class="site-header">
+        <input type="text" id="search-input" class="search-input" placeholder="Sök efter låt"
+            aria-label="Sök efter låt" />
+        <button id="open-modal-btn" class="site-header__btn-primary">
+            <span class="site-header__add-btn--icon">Add</span>
+        </button>
+    </header>
 
-            <h1 class="main-body__heading">Select your track!</h1>
-            <!-- <article class="main-body__card">
+    <main id="track-container" class="main-body">
+        <h1 class="main-body__heading">Select your track!</h1>
+        <!-- <article class="main-body__card">
                 <div class="main-body__image-wrapper">
                     <img id="track-cover" class="main-body__image" src="https://picsum.photos/300/200" />
                 </div>
@@ -39,6 +46,40 @@
                 </div>
             </article> -->
 
-        </main>
-    </body>
+    </main>
+
+            <dialog id="add-track-dialog" class="main-body__dialog">
+            <form id="add-track-form" class="main-body__form">
+                <h3 class="main-body__form-heading">Add track</h3>
+
+                <div class="main-body__input-group">
+                    <label for="title-input">Title</label>
+                    <input type="text" id="title-input" class="main-body__input-field"
+                        placeholder="I Really Want to Stay At Your House" required />
+                </div>
+
+                <div class="main-body__input-group">
+                    <label for="artist-input">Artist</label>
+                    <input type="text" id="artist-input" class="main-body__artist-field" placeholder="Rosa Walton"
+                        required />
+                </div>
+
+                <div class="main-body__input-group">
+                    <label for="duration-input">Duration</label>
+                    <input type="text" id="duration-input" class="main-body__input-field" placeholder="T.ex 3:45"
+                        required />
+                </div>
+
+                <div class="main-body__buttons">
+                    <button type="button" id="close-modal-btn" class="main-body__btn-secondary">
+                        Cancel
+                    </button>
+                    <button type="submit" class="main-body__btn-primary">
+                        Save
+                    </button>
+                </div>
+            </form>
+        </dialog>
+</body>
+
 </html>
