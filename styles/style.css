@@ -26,3 +26,8 @@
 .main-body__card.active {
     border: 5px solid green;
 }
+
+.main-body__dialog {
+    border: 1px solid green;
+    background-color: black;
+}
