@@ -1,4 +1,7 @@
 .main-body {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
     max-width: 1280px;
     margin-inline: auto;
 }
@@ -9,8 +12,15 @@
 }
 
 .main-body__card {
-    border: 1px solid black;
+    max-width: 50%;
     margin-block: 1rem;
+    border: 1px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px hsla(0, 0%, 33%, 1);
+}
+
+.main-body__image {
+    border-radius: 10px;
 }
 
 .main-body__card.active {
