@@ -130,7 +130,7 @@ function renderTracks() {
         titleElement.textContent = title;
 
         const artistElement = document.createElement("span");
-        card.classList.add("main-body__track-artist")
+        card.classList.add("main-body__track-artist");
         artistElement.textContent = artist;
 
         const durationElement = document.createElement("span");
@@ -170,8 +170,9 @@ function renderTracks() {
 
         card.append(
             imageWrapper, 
-            title, 
-            artist, 
+            titleElement, 
+            artistElement,
+            durationElement, 
             difficultyWrapper,
             bpm,
             typeOfMedia,
