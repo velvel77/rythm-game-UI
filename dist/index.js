@@ -121,7 +121,7 @@ function renderTracks() {
         const genre = document.createElement("span");
         card.classList.add("main-body__track-category--genre");
         genre.textContent = track.category.genre;
-        card.append(imageWrapper, title, artist, difficultyWrapper, bpm, typeOfMedia, genre);
+        card.append(imageWrapper, titleElement, artistElement, durationElement, difficultyWrapper, bpm, typeOfMedia, genre);
         if (trackContainer) {
             card.addEventListener("mouseenter", () => {
                 const currentActive = document.querySelector(".main-body__card.active");
@@ -173,6 +173,36 @@ openBtn.addEventListener("click", () => {
     dialog.showModal();
 });
 closeBtn.addEventListener("click", () => {
+    dialog.close();
+});
+addForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const title = titleInput.value;
+    const artist = artistInput.value;
+    const timeStr = durationInput.value;
+    const [minStr, secStr] = timeStr.split(":");
+    const min = Number(minStr);
+    const sec = Number(secStr);
+    if (isNaN(min) || isNaN(sec)) {
+        durationInput.classList.add("error");
+        alert("Wrong time format! Please use min:sec");
+        return;
+    }
+    durationInput.classList.remove("error");
+    const totalSeconds = min * 60 + sec;
+    const newTrack = {
+        id: Date.now(),
+        title: title,
+        artist: artist,
+        durationInSeconds: totalSeconds,
+        category: { typeOfMedia: "TBA", genre: "TBA" },
+        difficulty: ["TBA"],
+        BPM: 0,
+        isPaused: false,
+    };
+    trackSelection.push(newTrack);
+    renderTracks();
+    addForm.reset();
     dialog.close();
 });
 export {};
