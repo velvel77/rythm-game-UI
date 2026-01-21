@@ -1,21 +1,11 @@
-// --- Interfaces ---
+import type { Track } from "./models/Track";
 
-interface Track {
-    id: number;
-    title: string;
-    artist: string;
-    durationInSeconds: number;
-    category: Category;
-    difficulty: string[];
-    BPM: number;
-    isPaused: boolean;
-    coverUrl?: string;
-}
+// --- Models ---
+// --- Services ---
+// --- Utils ---
+// --- Components ---
 
-interface Category {
-    typeOfMedia: string;
-    genre: string;
-}
+
 
 type MuteStatus = 'playing' | 'muted';
 
