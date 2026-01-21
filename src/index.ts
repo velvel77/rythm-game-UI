@@ -98,6 +98,26 @@ const durationInput = document.querySelector("#duration-input") as HTMLInputElem
 
 // --- Logic ---
 
+const saveToLocalStorage = () => {
+    const jsonString = JSON.stringify(trackSelection);
+
+    localStorage.setItem("myTrackList", jsonString);
+}
+
+const loadFromLocalStorage = () => {
+    const storedData = localStorage.getItem("myTrackList")
+
+    if (storedData) {
+        const parseData = JSON.parse(storedData) as Track[];
+
+        trackSelection.length = 0;
+        trackSelection.push(...parseData);
+
+        renderTracks();
+    }
+}
+
+loadFromLocalStorage();
 renderTracks();
 onClick();
 
@@ -303,6 +323,7 @@ addForm.addEventListener("submit", (e) => {
     }
 
     trackSelection.push(newTrack);
+    saveToLocalStorage();
     renderTracks();
 
     addForm.reset();

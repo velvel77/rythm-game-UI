@@ -76,6 +76,20 @@ const titleInput = document.querySelector("#title-input");
 const artistInput = document.querySelector("#artist-input");
 const durationInput = document.querySelector("#duration-input");
 // --- Logic ---
+const saveToLocalStorage = () => {
+    const jsonString = JSON.stringify(trackSelection);
+    localStorage.setItem("myTrackList", jsonString);
+};
+const loadFromLocalStorage = () => {
+    const storedData = localStorage.getItem("myTrackList");
+    if (storedData) {
+        const parseData = JSON.parse(storedData);
+        trackSelection.length = 0;
+        trackSelection.push(...parseData);
+        renderTracks();
+    }
+};
+loadFromLocalStorage();
 renderTracks();
 onClick();
 // --- Functions ---
@@ -223,6 +237,7 @@ addForm.addEventListener("submit", (e) => {
         isPaused: false,
     };
     trackSelection.push(newTrack);
+    saveToLocalStorage();
     renderTracks();
     addForm.reset();
     dialog.close();
