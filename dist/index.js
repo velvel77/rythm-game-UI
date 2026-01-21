@@ -1,4 +1,3 @@
-// --- Interfaces ---
 const trackSelection = [
     {
         id: 1,
@@ -76,6 +75,31 @@ const addForm = document.querySelector("#add-track-form");
 const titleInput = document.querySelector("#title-input");
 const artistInput = document.querySelector("#artist-input");
 const durationInput = document.querySelector("#duration-input");
+// --- Logic ---
+renderTracks();
+onClick();
+// --- Functions ---
+//Event delegation only implemented for practice, since mouseenter/mouseleave
+//doesn't bubble we use a seperate logic for clicking
+function onClick() {
+    if (trackContainer) {
+        trackContainer.addEventListener("click", (e) => {
+            const target = e.target;
+            //prevent card getting clicked when pressing a button
+            if (e.target.closest("button"))
+                return;
+            const card = target.closest(".main-body__card");
+            if (!card)
+                return;
+            //we use selected since active is taken in renderTracks()
+            const previousSelected = document.querySelector(".main-body__card.selected");
+            if (previousSelected) {
+                previousSelected.classList.remove("selected");
+            }
+            card.classList.add("selected");
+        });
+    }
+}
 function renderTracks() {
     if (trackContainer) {
         trackContainer.replaceChildren();
@@ -86,9 +110,10 @@ function renderTracks() {
     trackContainer?.appendChild(heading);
     trackSelection.forEach((track) => {
         //destructuring
-        const { title, artist, durationInSeconds } = track;
+        const { id, title, artist, durationInSeconds } = track;
         const card = document.createElement("article");
         card.classList.add("main-body__card");
+        card.dataset.id = id.toString();
         const titleElement = document.createElement("h2");
         card.classList.add("main-body__track-title");
         titleElement.textContent = title;
@@ -141,9 +166,6 @@ function renderTracks() {
         }
     });
 }
-// --- Logic ---
-renderTracks();
-// --- Functions ---
 function previewTrack(track) {
     if (trackTitleElement) {
         trackTitleElement.textContent = track.title;

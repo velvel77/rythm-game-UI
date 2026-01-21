@@ -96,6 +96,39 @@ const titleInput = document.querySelector("#title-input") as HTMLInputElement;
 const artistInput = document.querySelector("#artist-input") as HTMLInputElement;
 const durationInput = document.querySelector("#duration-input") as HTMLInputElement;
 
+// --- Logic ---
+
+renderTracks();
+onClick();
+
+// --- Functions ---
+
+//Event delegation only implemented for practice, since mouseenter/mouseleave
+//doesn't bubble we use a seperate logic for clicking
+function onClick() {
+    if(trackContainer) {
+        trackContainer.addEventListener("click", (e) => {
+            const target = e.target as HTMLElement;
+
+            //prevent card getting clicked when pressing a button
+            if((e.target as HTMLElement).closest("button")) return;
+
+            const card = target.closest(".main-body__card") as HTMLElement;
+
+            if(!card) return;
+
+            //we use selected since active is taken in renderTracks()
+            const previousSelected = document.querySelector(".main-body__card.selected");
+            if(previousSelected) {
+                previousSelected.classList.remove("selected");
+            }
+
+            card.classList.add("selected");
+        });
+    }
+}
+
+
 function renderTracks() {
 
     if(trackContainer) {
@@ -110,10 +143,12 @@ function renderTracks() {
     trackSelection.forEach((track) => {
 
         //destructuring
-        const { title, artist, durationInSeconds } = track;
+        const { id, title, artist, durationInSeconds } = track;
 
         const card = document.createElement("article");
         card.classList.add("main-body__card");
+
+        card.dataset.id = id.toString();
 
         const titleElement = document.createElement("h2");
         card.classList.add("main-body__track-title");
@@ -192,12 +227,6 @@ function renderTracks() {
         }
     })
 }
-
-// --- Logic ---
-
-renderTracks();
-
-// --- Functions ---
 
 function previewTrack(track: Track) {
 
