@@ -1,3 +1,20 @@
+
+.site-header__wrapper,
+.site-footer__wrapper {
+    display: flex;
+    justify-content: end;
+    gap: 0.5rem;
+    background-color: hsla(190, 60%, 70%, 1);
+    padding: 2rem;
+}
+
+.site-header__search-input,
+.site-header__btn-primary {
+    border: 1px solid black;
+    border-radius: 1rem;
+    padding: 0.5em;
+}
+
 .main-body {
     display: grid;
     grid-template-columns: 1fr;
@@ -20,7 +37,7 @@
 }
 
 .main-body__image {
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 .main-body__card.active {
